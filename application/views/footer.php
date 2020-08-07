@@ -54,23 +54,24 @@ var base_url = '<?php echo base_url(); ?>';
 
 $(document).ready(function() {
 
-    $('.navbar-nav').on('click', 'a', function(e) {
-        // 'this' is the clicked anchor
-        var text = this.text;
-        var href = this.href;
-        alert(text);
-        $.ajax({
-            type: "post",
-            url: "<?php echo base_url('chart'); ?>",
-            success: function(data) {
-                $('.container-fluid').html(data);
-            }
-        });
-    });
-    $('.navbar-nav a').on('click', function() {
-        $('.navbar-nav').find('li.active').removeClass('active');
-        $(this).parent('li').addClass('active');
-    });
+    /* $('.navbar-nav').on('click', 'a', function(e) {
+         // 'this' is the clicked anchor
+         var text = this.text;
+         var href = this.href;
+         alert(text);
+         if (text == 'Charts') {
+             $('.container-fluid').load('http://localhost/CodeIgniter-Admin/chart');
+         }
+           $.ajax({
+              type: "post",
+              success: function(data) {
+                  $('nav a[href^="/' + location.pathname.split("/")[1] + '"]').addClass(
+                      'active');
+                  $('.container-fluid').load('http://localhost/CodeIgniter-Admin/chart');
+              }
+          }); 
+});*/
+
     //datatables
     table = $('#userTable').DataTable({
         "dom": 'Bfrtip',

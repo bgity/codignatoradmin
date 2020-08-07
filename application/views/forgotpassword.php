@@ -52,7 +52,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                     <form action="" name="forgetPsd" class="user">
                                         <div class="form-group">
                                             <input type="text" name="username" id="username" placeholder="username"
-                                                class="form-control form-control-user" />
+                                                class="form-control form-control-user" autocomplete="off" />
                                         </div>
                                         <div class="form-group">
                                             <input type="password" name="password" id="password" placeholder="password"

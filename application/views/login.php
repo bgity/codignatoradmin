@@ -126,6 +126,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                         $('.loading').show();
                     },
                     success: function(response) {
+                        console.log(response);
                         if (response == 1) {
                             setTimeout(function() {
                                 $('.loading').hide();

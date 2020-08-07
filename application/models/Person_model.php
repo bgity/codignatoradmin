@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 class Person_model extends CI_Model
 {
-    var $table = 'persons';
+    var $table = 'admin';
     var $column_order = array('firstname', 'lastname', 'gender', 'address', 'dob', null); //set column field database for datatable orderable    
     var $column_search = array('firstname', 'lastname', 'address'); //set column field database for datatable searchable just firstname , lastname , address are searchable     var $order = array('id' => 'desc'); // default order 
 
@@ -13,7 +13,12 @@ class Person_model extends CI_Model
 
     private function _get_datatables_query()
     {
+        // print_r($_SESSION);
+        // print_r($this->session);
+        //$this->db->select($this->select_column);
+        $this->db->where('admin.business_unit', $this->session->userdata('business_unit'));
         $this->db->from($this->table);
+        // $this->db->join('admin', $this->table . '.business_unit = admin.business_unit');
         $i = 0;
         foreach ($this->column_search as $item) // loop column 
         {

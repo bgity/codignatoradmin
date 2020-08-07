@@ -2,11 +2,14 @@
   display: none;
 }
 .form-control:focus {
-  color: #687281 !important;
+  /*  color: #687281 !important; */
   background-color: #fff !important;
   border-color: #0061f2 !important;
   outline: 0 !important;
   box-shadow: 0 0 0 0.0625rem #0061f2 !important;
+}
+a:hover {
+  text-decoration: none !important;
 }
 /* .page-header.page-header-dark {
   color: rgba(255, 255, 255, 0.5);

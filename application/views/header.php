@@ -42,7 +42,10 @@ defined('BASEPATH') or exit('No direct script access allowed');
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
             <!-- Nav Item - Dashboard -->
+            <?php if ($type == 'dashboard') { ?>
             <li class="nav-item active">
+                <?php } else { ?>
+            <li class="nav-item"><?php } ?>
                 <a class="nav-link" href="<?= base_url() ?>">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
@@ -50,35 +53,38 @@ defined('BASEPATH') or exit('No direct script access allowed');
             <!-- Divider -->
             <hr class="sidebar-divider">
             <li class="nav-item">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="<?= base_url() ?>fileupload">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>File Upload</span></a>
             </li>
             <!-- Divider -->
             <hr class="sidebar-divider">
             <li class="nav-item">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="<?= base_url() ?>invoice">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Invoice</span></a>
             </li>
             <!-- Divider -->
             <hr class="sidebar-divider">
             <li class="nav-item">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="<?= base_url() ?>mapping">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Mapping</span></a>
             </li>
             <!-- Divider -->
             <hr class="sidebar-divider">
             <li class="nav-item">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="<?= base_url() ?>setting">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Settings</span></a>
             </li>
             <!-- Divider -->
             <hr class="sidebar-divider">
-            <li class="nav-item">
-                <a class="nav-link" href="#">
+            <?php if ($type == 'chart') { ?>
+            <li class="nav-item active">
+                <?php } else { ?>
+            <li class="nav-item"><?php } ?>
+                <a class="nav-link" href="<?= base_url() ?>chart">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Charts</span></a>
             </li>
