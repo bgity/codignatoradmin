@@ -21,6 +21,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
     <link href="<?= base_url() ?>resources/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
     <!-- Custom styles for this template -->
     <link href="<?= base_url() ?>resources/css/sb-admin-2.css" rel="stylesheet">
+    <link href="<?= base_url() ?>resources/css/custom.css" rel="stylesheet">
     <style>
     h2 {
         color: white;
@@ -76,6 +77,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
             </div>
         </div>
     </div>
+    <div class='loading' style='display:none'></div>
     <!-- Bootstrap core JavaScript -->
     <script src="<?= base_url() ?>resources/vendor/jquery/jquery.min.js"></script>
     <script src="<?= base_url() ?>resources/vendor/tether/tether.min.js"></script>
@@ -120,13 +122,17 @@ defined('BASEPATH') or exit('No direct script access allowed');
                     url: "<?php echo base_url() ?>login/userlogin",
                     type: "POST",
                     data: $(form).serialize(),
+                    beforeSend: function() {
+                        $('.loading').show();
+                    },
                     success: function(response) {
                         if (response == 1) {
                             setTimeout(function() {
-                                //Redirect to login page after 1 sec
+                                $('.loading').hide();
                                 window.location.href =
                                     '<?= base_url() ?>';
-                            }, 1000)
+                            }, 2000)
+
                         }
                     }
                 });
