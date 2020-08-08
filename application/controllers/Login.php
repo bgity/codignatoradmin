@@ -6,7 +6,6 @@ class Login extends CI_Controller
 
 	/* public function index()
 	{
-
 		$data["error"] = 0;
 		if ($this->input->post()) {
 			if ($this->session->userdata("loginattempts")) {
@@ -47,13 +46,15 @@ class Login extends CI_Controller
 		$this->load->view('login');
 	}
 
-
 	public function userlogin()
 	{
 		$postData = $this->input->post();
 		$auth = $this->Admin_model->adminLogin($postData);
 		if ($auth == 1) {
 			echo "1";
+		}
+		if ($auth == 2) {
+			echo "2";
 		}
 	}
 }

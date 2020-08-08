@@ -126,14 +126,19 @@ defined('BASEPATH') or exit('No direct script access allowed');
                         $('.loading').show();
                     },
                     success: function(response) {
-                        console.log(response);
                         if (response == 1) {
                             setTimeout(function() {
                                 $('.loading').hide();
                                 window.location.href =
                                     '<?= base_url() ?>';
                             }, 2000)
-
+                        }
+                        if (response == 2) {
+                            setTimeout(function() {
+                                $('.loading').hide();
+                                window.location.href =
+                                    '<?= base_url() ?>admin';
+                            }, 2000)
                         }
                     }
                 });

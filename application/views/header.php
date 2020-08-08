@@ -42,6 +42,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
             <!-- Nav Item - Dashboard -->
+            <!--ACCESS MENUS FOR ADMIN-->
+            <?php if ($this->session->userdata('level') === '1') : ?>
             <?php if ($type == 'dashboard') { ?>
             <li class="nav-item active">
                 <?php } else { ?>
@@ -50,6 +52,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
+
             <!-- Divider -->
             <hr class="sidebar-divider">
             <li class="nav-item">
@@ -57,6 +60,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>File Upload</span></a>
             </li>
+
             <!-- Divider -->
             <hr class="sidebar-divider">
             <li class="nav-item">
@@ -64,6 +68,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Invoice</span></a>
             </li>
+
             <!-- Divider -->
             <hr class="sidebar-divider">
             <li class="nav-item">
@@ -71,6 +76,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Mapping</span></a>
             </li>
+
             <!-- Divider -->
             <hr class="sidebar-divider">
             <li class="nav-item">
@@ -78,6 +84,11 @@ defined('BASEPATH') or exit('No direct script access allowed');
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Settings</span></a>
             </li>
+
+
+            <!--ACCESS MENUS FOR STAFF-->
+            <?php elseif ($this->session->userdata('level') === '2') : ?>
+
             <!-- Divider -->
             <hr class="sidebar-divider">
             <?php if ($type == 'chart') { ?>
@@ -88,6 +99,20 @@ defined('BASEPATH') or exit('No direct script access allowed');
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Charts</span></a>
             </li>
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+            <li class="nav-item">
+                <a class="nav-link" href="<?= base_url() ?>fileupload">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>File Upload</span></a>
+            </li>
+
+            <!--ACCESS MENUS FOR AUTHOR-->
+            <?php else : ?>
+            <li class="active"><a href="#">Dashboard</a></li>
+            <li><a href="#">Posts</a></li>
+            <?php endif; ?>
+
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
             <!-- Sidebar Toggler (Sidebar) -->
@@ -131,3 +156,23 @@ defined('BASEPATH') or exit('No direct script access allowed');
                         </li>
                     </ul>
                 </nav>
+                <!-- Logout Modal-->
+                <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">Select "Logout" below if you are ready to end your current session.
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                                <a class="btn btn-primary" href="<?= base_url() ?>logout">Logout</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>

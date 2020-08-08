@@ -354,22 +354,29 @@ class Admin_model extends CI_Model
         $query = $this->db->query($sql);
         if ($query->num_rows() > 0) {
             $q = $query->row();
+            $level = $q->access_level;
             $this->session->set_userdata("username", $q->username);
             // $this->session->set_userdata("verification_key", $q->verification_key);
             $this->session->set_userdata("admin_id", $q->id);
             $this->session->set_userdata("business_unit", $q->business_unit);
             $this->session->set_userdata("loggedin", 1);
+            $this->session->set_userdata("level", $q->access_level);
             $ip = $this->getUserIP();
             $sql2 = "UPDATE admin SET last_signin = NOW(), ip = " . $this->db->escape($ip) . " WHERE id = " . $q->id;
             $this->db->query($sql2);
-            return TRUE;
+            if ($level === '1') {
+                return 1;
+            }
+            if ($level === '2') {
+                return 2;
+            }
         } else {
-            return 2;
+            return 3;
         }
     }
     public function verifyUser()
     {
-        if ($this->session->userdata("username") && $this->session->userdata("business_unit") && $this->session->userdata("admin_id") && $this->session->userdata("loggedin")) {
+        if ($this->session->userdata("username") && $this->session->userdata("business_unit") && $this->session->userdata("level") && $this->session->userdata("admin_id") && $this->session->userdata("loggedin")) {
             $sql = "SELECT * FROM admin WHERE id = " . $this->db->escape(strip_tags((int)$this->session->userdata("admin_id"))) . " AND business_unit = " . $this->db->escape(strip_tags($this->session->userdata("business_unit"))) . " AND username = " . $this->db->escape(strip_tags($this->session->userdata("username")));
             $query = $this->db->query($sql);
             if ($query->num_rows() > 0) {
@@ -386,10 +393,13 @@ class Admin_model extends CI_Model
 
     public function logout()
     {
+
         $this->session->unset_userdata("username");
         $this->session->unset_userdata("business_unit");
         $this->session->unset_userdata("admin_id");
         $this->session->unset_userdata("loggedin");
+        $this->session->unset_userdata("level");
+
         return TRUE;
     }
 
