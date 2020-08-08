@@ -56,5 +56,8 @@ class Login extends CI_Controller
 		if ($auth == 2) {
 			echo "2";
 		}
+		if ($auth == 3) {
+			echo "3";
+		}
 	}
 }

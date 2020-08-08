@@ -140,6 +140,12 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                     '<?= base_url() ?>admin';
                             }, 2000)
                         }
+                        if (response == 3) {
+                            $('.loading').hide();
+                            alert("something went wrong please try again");
+                            $("#username").val("");
+                            $("#password").val("");
+                        }
                     }
                 });
             }
