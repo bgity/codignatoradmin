@@ -84,8 +84,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Settings</span></a>
             </li>
-
-
             <!--ACCESS MENUS FOR STAFF-->
             <?php elseif ($this->session->userdata('level') === '2') : ?>
 

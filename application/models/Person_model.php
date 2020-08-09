@@ -71,7 +71,6 @@ class Person_model extends CI_Model
         $this->db->from($this->table);
         $this->db->where('id', $id);
         $query = $this->db->get();
-
         return $query->row();
     }
 
@@ -91,5 +90,16 @@ class Person_model extends CI_Model
     {
         $this->db->where('id', $id);
         $this->db->delete($this->table);
+    }
+    public function adminCheck($userName)
+    {
+        $this->db->from($this->table);
+        $this->db->where('username', $userName);
+        $query = $this->db->get();
+        if ($query->num_rows()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

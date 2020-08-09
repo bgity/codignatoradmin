@@ -106,7 +106,7 @@ $(document).ready(function() {
     //datepicker
     $('input[name="dob"]').daterangepicker({
         singleDatePicker: true,
-        drops: 'up',
+        drops: 'down',
         showDropdowns: true,
         locale: {
             format: 'YYYY-MM-DD'
@@ -142,6 +142,10 @@ function add_person() {
     $('.help-block').empty(); // clear error string
     $('#modal_form').modal('show'); // show bootstrap modal
     $('.modal-title').text('Add Person'); // Set Title to Bootstrap modal title
+}
+
+function change_role() {
+    save_method = 'role';
 }
 
 function edit_person(id) {

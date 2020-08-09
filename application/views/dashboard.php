@@ -66,7 +66,7 @@ print_r($_SESSION);
                             <th>Gender</th>
                             <th>Address</th>
                             <th>Date of Birth</th>
-                            <th>Action</th>
+                            <th style="width:159px">Action</th>
                         </tr>
                     </tfoot>
                     <tbody>
@@ -91,19 +91,19 @@ print_r($_SESSION);
                 </button>
             </div>
             <div class="modal-body form">
-                <form action="#" id="form" class="form-horizontal">
+                <!-- <form action="#" id="form" class="form-horizontal">
                     <input type="hidden" value="" name="id" />
                     <div class="form-body">
-                        <div class="form-group">
-                            <label class="control-label col-md-3">First Name</label>
+                        <div class="col-md-4 mb-3">
+                            <label class="control-label">First Name</label>
                             <div class="col-md-9">
                                 <input name="firstName" placeholder="First Name" class="form-control" type="text">
                                 <span class="help-block"></span>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-3">Last Name</label>
-                            <div class="col-md-9">
+                        <div class="col-md-4 mb-3">
+                            <label class="control-label">Last Name</label>
+                            <div >
                                 <input name="lastName" placeholder="Last Name" class="form-control" type="text">
                                 <span class="help-block"></span>
                             </div>
@@ -135,6 +135,82 @@ print_r($_SESSION);
                             </div>
                         </div>
                     </div>
+                </form> -->
+                <form action="#" id="form" novalidate>
+                    <div class="form-row">
+                        <div class="col-md-6 mb-6">
+                            <label class="control-label">First Name</label>
+                            <div>
+                                <input name="firstName" placeholder="First Name" class="form-control" type="text">
+                                <span class="help-block"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-6">
+                            <label class="control-label">Last Name</label>
+                            <div>
+                                <input name="lastName" placeholder="Last Name" class="form-control" type="text">
+                                <span class="help-block"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-6 mb-6">
+                            <label class="control-label">Gender</label>
+                            <div>
+                                <select name="gender" class="form-control">
+                                    <option value="">--Select Gender--</option>
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                </select>
+                                <span class="help-block"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-6">
+                            <label class="control-label ">Date of Birth</label>
+                            <div>
+                                <input name="dob" placeholder="yyyy-mm-dd" id="datepicker"
+                                    class="form-control datepicker" type="text">
+                                <span class="help-block"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-6 mb-6">
+                            <label class="control-label">Role</label>
+                            <div>
+                                <select name="role" class="form-control">
+                                    <option value="">--Select Role--</option>
+                                    <option value="1">SuperAdmin</option>
+                                    <option value="2">Admin</option>
+                                </select>
+                                <span class="help-block"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-6">
+                            <label class="control-label">Username</label>
+                            <div>
+                                <input name="userName" id="userName" class="form-control" type="text">
+                                <span class="help-block"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-6 mb-6">
+                            <label class="control-label ">Password</label>
+                            <div>
+                                <input name="userPassword" id="userPassword" class="form-control" type="password">
+                                <span class="help-block"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-6">
+                            <label class="control-label">Address</label>
+                            <div>
+                                <textarea name="address" placeholder="Address" class="form-control"></textarea>
+                                <span class="help-block"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <!--  <button class="btn btn-primary" type="submit">Submit form</button> -->
                 </form>
             </div>
             <div class="modal-footer">
