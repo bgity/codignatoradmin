@@ -2,8 +2,8 @@
 class Person_model extends CI_Model
 {
     var $table = 'admin';
-    var $column_order = array('firstname', 'lastname', 'gender', 'address', 'dob', null); //set column field database for datatable orderable    
-    var $column_search = array('firstname', 'lastname', 'address'); //set column field database for datatable searchable just firstname , lastname , address are searchable     var $order = array('id' => 'desc'); // default order 
+    var $column_order = array('firstname', 'lastname', 'username', 'gender', 'address', 'dob', null); //set column field database for datatable orderable    
+    var $column_search = array('firstname', 'lastname', 'username', 'address'); //set column field database for datatable searchable just firstname , lastname , address are searchable     var $order = array('id' => 'desc'); // default order 
 
     public function __construct()
     {
@@ -13,11 +13,20 @@ class Person_model extends CI_Model
 
     private function _get_datatables_query()
     {
-        // print_r($_SESSION);
-        // print_r($this->session);
+        //print_r($_SESSION);
+        //print_r($this->session);
         //$this->db->select($this->select_column);
-        $this->db->where('admin.business_unit', $this->session->userdata('business_unit'));
-        $this->db->from($this->table);
+        if ($_SESSION['level'] == '2') {
+            $this->db->where('admin.business_unit', $this->session->userdata('business_unit'));
+            $this->db->where('admin.access_level', $this->session->userdata('level'));
+            $this->db->where('admin.id !=', $this->session->userdata('admin_id'));
+            $this->db->from($this->table);
+        } else {
+            $this->db->where('admin.business_unit', $this->session->userdata('business_unit'));
+            $this->db->where('admin.id !=', $this->session->userdata('admin_id'));
+            $this->db->from($this->table);
+        }
+
         // $this->db->join('admin', $this->table . '.business_unit = admin.business_unit');
         $i = 0;
         foreach ($this->column_search as $item) // loop column 
@@ -102,4 +111,17 @@ class Person_model extends CI_Model
             return false;
         }
     }
+
+    /* public function adminAccessLevelCheck($userName, $level)
+    {
+        $this->db->from($this->table);
+        $this->db->where('username', $userName);
+        $this->db->where('access_level', $level);
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) {
+            $q = $query->row();
+            $level = $q->access_level;
+        }
+        return $level;
+    } */
 }

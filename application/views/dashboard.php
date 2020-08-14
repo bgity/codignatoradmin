@@ -1,6 +1,6 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
-print_r($_SESSION);
+//print_r($_SESSION);
 ?>
 <!-- Begin Page Content -->
 <!-- <header class="page-header page-header-dark bg-gradient-primary-to-secondary pb-10">
@@ -53,6 +53,7 @@ print_r($_SESSION);
                         <tr>
                             <th>First Name</th>
                             <th>Last Name</th>
+                            <th>User Name</th>
                             <th>Gender</th>
                             <th>Address</th>
                             <th>Date of Birth</th>
@@ -63,6 +64,7 @@ print_r($_SESSION);
                         <tr>
                             <th>First Name</th>
                             <th>Last Name</th>
+                            <th>User Name</th>
                             <th>Gender</th>
                             <th>Address</th>
                             <th>Date of Birth</th>
@@ -91,52 +93,8 @@ print_r($_SESSION);
                 </button>
             </div>
             <div class="modal-body form">
-                <!-- <form action="#" id="form" class="form-horizontal">
-                    <input type="hidden" value="" name="id" />
-                    <div class="form-body">
-                        <div class="col-md-4 mb-3">
-                            <label class="control-label">First Name</label>
-                            <div class="col-md-9">
-                                <input name="firstName" placeholder="First Name" class="form-control" type="text">
-                                <span class="help-block"></span>
-                            </div>
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <label class="control-label">Last Name</label>
-                            <div >
-                                <input name="lastName" placeholder="Last Name" class="form-control" type="text">
-                                <span class="help-block"></span>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-3">Gender</label>
-                            <div class="col-md-9">
-                                <select name="gender" class="form-control">
-                                    <option value="">--Select Gender--</option>
-                                    <option value="male">Male</option>
-                                    <option value="female">Female</option>
-                                </select>
-                                <span class="help-block"></span>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-3">Address</label>
-                            <div class="col-md-9">
-                                <textarea name="address" placeholder="Address" class="form-control"></textarea>
-                                <span class="help-block"></span>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-3">Date of Birth</label>
-                            <div class="col-md-9">
-                                <input name="dob" placeholder="yyyy-mm-dd" id="datepicker"
-                                    class="form-control datepicker" type="text">
-                                <span class="help-block"></span>
-                            </div>
-                        </div>
-                    </div>
-                </form> -->
                 <form action="#" id="form" novalidate>
+                    <input type="hidden" value="" name="id" />
                     <div class="form-row">
                         <div class="col-md-6 mb-6">
                             <label class="control-label">First Name</label>
@@ -180,7 +138,9 @@ print_r($_SESSION);
                             <div>
                                 <select name="role" class="form-control">
                                     <option value="">--Select Role--</option>
+                                    <?php if ($_SESSION['level'] == '1') { ?>
                                     <option value="1">SuperAdmin</option>
+                                    <?php } ?>
                                     <option value="2">Admin</option>
                                 </select>
                                 <span class="help-block"></span>
@@ -195,7 +155,49 @@ print_r($_SESSION);
                         </div>
                     </div>
                     <div class="form-row">
+                        <div class="col-md-6 mb-6 psdDiv">
+                            <label class="control-label ">Password</label>
+                            <div>
+                                <input name="userPassword" id="userPassword" class="form-control" type="password">
+                                <span class="help-block"></span>
+                            </div>
+                        </div>
                         <div class="col-md-6 mb-6">
+                            <label class="control-label">Address</label>
+                            <div>
+                                <textarea name="address" placeholder="Address" class="form-control"></textarea>
+                                <span class="help-block"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <!--  <button class="btn btn-primary" type="submit">Submit form</button> -->
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnSave" onclick="save()" class="btn btn-primary">Save</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!-- End Bootstrap modal -->
+
+
+<!-- Bootstrap modal -->
+<div class="modal fade" id="role_form" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body form">
+                <form action="#" id="roleForm" novalidate>
+                    <input type="hidden" value="" name="id" />
+                    <div class="form-row">
+                        <div class="col-md-6 mb-6 psdDiv">
                             <label class="control-label ">Password</label>
                             <div>
                                 <input name="userPassword" id="userPassword" class="form-control" type="password">

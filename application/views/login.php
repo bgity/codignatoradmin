@@ -130,14 +130,14 @@ defined('BASEPATH') or exit('No direct script access allowed');
                             setTimeout(function() {
                                 $('.loading').hide();
                                 window.location.href =
-                                    '<?= base_url() ?>';
+                                    '<?= base_url() ?>dashboard';
                             }, 2000)
                         }
                         if (response == 2) {
                             setTimeout(function() {
                                 $('.loading').hide();
                                 window.location.href =
-                                    '<?= base_url() ?>admin';
+                                    '<?= base_url() ?>dashboard/admin';
                             }, 2000)
                         }
                         if (response == 3) {

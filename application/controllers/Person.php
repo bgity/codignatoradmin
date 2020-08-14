@@ -16,7 +16,11 @@ class Person extends CI_Controller
         $this->load->helper('url');
         $this->load->view('person_view');
     }
-
+    protected function generateSalt()
+    {
+        $salt = "xiORG17N6ayoEn6X3";
+        return $salt;
+    }
     public function ajax_list()
     {
         $this->load->helper('url');
@@ -29,15 +33,14 @@ class Person extends CI_Controller
             //$row[] = '<input type="checkbox" class="data-check" value="'.$person->id.'">';
             $row[] = $person->firstName;
             $row[] = $person->lastName;
+            $row[] = $person->username;
             $row[] = $person->gender;
             $row[] = $person->address;
             $row[] = $person->dob;
 
             //add html for action
             $row[] = '<a class="btn btn-sm btn-primary" href="javascript:void(0)" title="Edit" onclick="edit_person(' . "'" . $person->id . "'" . ')"><i class="glyphicon glyphicon-pencil"></i> Edit</a>
-                  <a class="btn btn-sm btn-danger" href="javascript:void(0)" title="Hapus" onclick="delete_person(' . "'" . $person->id . "'" . ')"><i class="glyphicon glyphicon-trash"></i> Delete</a> 
-                  <a class="btn btn-sm btn-danger" href="javascript:void(0)" title="Hapus" onclick="change_role(' . "'" . $person->id . "'" . ')"><i class="glyphicon glyphicon-trash"></i> Role</a>';
-
+                  <a class="btn btn-sm btn-danger" href="javascript:void(0)" title="Hapus" onclick="delete_person(' . "'" . $person->id . "'" . ')"><i class="glyphicon glyphicon-trash"></i> Delete</a>';
             $data[] = $row;
         }
 
@@ -60,7 +63,8 @@ class Person extends CI_Controller
 
     public function ajax_add()
     {
-        $this->_validate();
+        $updateForm = 'add';
+        $this->_validate($updateForm);
         $adminVal =  $this->input->post('userName');
         $adminCeck = $this->person->adminCheck($adminVal);
         print_r($adminCeck);
@@ -86,7 +90,8 @@ class Person extends CI_Controller
 
     public function ajax_update()
     {
-        $this->_validate();
+        $updateForm = 'update';
+        $this->_validate($updateForm);
         $data = array(
             'firstName' => $this->input->post('firstName'),
             'lastName' => $this->input->post('lastName'),
@@ -94,10 +99,10 @@ class Person extends CI_Controller
             'address' => $this->input->post('address'),
             'dob' => $this->input->post('dob'),
             'username' => $this->input->post('userName'),
-            'business_unit' => $this->input->post('bunit'),
             'access_level' => $this->input->post('role'),
-            'password' => $this->input->post('userPassword'),
+            //'password' => $this->db->escape(strip_tags(md5($salt . $this->input->post('userPassword'))))
         );
+
         $this->person->update(array('id' => $this->input->post('id')), $data);
         echo json_encode(array("status" => TRUE));
     }
@@ -117,7 +122,7 @@ class Person extends CI_Controller
         echo json_encode(array("status" => TRUE));
     }
 
-    private function _validate()
+    private function _validate($updateForm)
     {
         $data = array();
         $data['error_string'] = array();
@@ -166,11 +171,12 @@ class Person extends CI_Controller
             $data['error_string'][] = 'username is required';
             $data['status'] = FALSE;
         }
-
-        if ($this->input->post('userPassword') == '') {
-            $data['inputerror'][] = 'userPassword';
-            $data['error_string'][] = 'Password is required';
-            $data['status'] = FALSE;
+        if ($updateForm == 'add') {
+            if ($this->input->post('userPassword') == '') {
+                $data['inputerror'][] = 'userPassword';
+                $data['error_string'][] = 'Password is required';
+                $data['status'] = FALSE;
+            }
         }
 
         if ($data['status'] === FALSE) {

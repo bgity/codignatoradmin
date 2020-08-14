@@ -20,9 +20,9 @@ class Dashboard extends CI_Controller
 	{
 		if ($this->Admin_model->verifyUser()) {
 			if ($this->session->userdata('level') === '2') {
-				$data['type'] = "chart";
+				$data['type'] = "dashboard";
 				$this->load->view('header', $data);
-				$this->load->view('chart');
+				$this->load->view('dashboard');
 				$this->load->view('footer');
 			} else {
 				echo "Access Denied";

@@ -48,11 +48,10 @@ defined('BASEPATH') or exit('No direct script access allowed');
             <li class="nav-item active">
                 <?php } else { ?>
             <li class="nav-item"><?php } ?>
-                <a class="nav-link" href="<?= base_url() ?>">
+                <a class="nav-link" href="<?= base_url() ?>dashboard">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
-
             <!-- Divider -->
             <hr class="sidebar-divider">
             <li class="nav-item">
@@ -60,35 +59,43 @@ defined('BASEPATH') or exit('No direct script access allowed');
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>File Upload</span></a>
             </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-            <li class="nav-item">
-                <a class="nav-link" href="<?= base_url() ?>invoice">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Invoice</span></a>
+            <?php if ($type == 'chart') { ?>
+            <li class="nav-item active">
+                <?php } else { ?>
+            <li class="nav-item"><?php } ?>
+                <a class="nav-link" href="<?= base_url() ?>chart">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>Charts</span></a>
             </li>
+            <!-- <hr class="sidebar-divider">
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?= base_url() ?>invoice">
+                            <i class="fas fa-fw fa-tachometer-alt"></i>
+                            <span>Invoice</span></a>
+                    </li>
+                    <hr class="sidebar-divider">
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?= base_url() ?>mapping">
+                            <i class="fas fa-fw fa-tachometer-alt"></i>
+                            <span>Mapping</span></a>
+                    </li>
+                    <hr class="sidebar-divider">
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?= base_url() ?>setting">
+                            <i class="fas fa-fw fa-tachometer-alt"></i>
+                            <span>Settings</span></a>
+                    </li> -->
 
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-            <li class="nav-item">
-                <a class="nav-link" href="<?= base_url() ?>mapping">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Mapping</span></a>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-            <li class="nav-item">
-                <a class="nav-link" href="<?= base_url() ?>setting">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Settings</span></a>
-            </li>
-            <!--ACCESS MENUS FOR STAFF-->
             <?php elseif ($this->session->userdata('level') === '2') : ?>
-
             <!-- Divider -->
-            <hr class="sidebar-divider">
+            <?php if ($type == 'dashboard') { ?>
+            <li class="nav-item active">
+                <?php } else { ?>
+            <li class="nav-item"><?php } ?>
+                <a class="nav-link" href="<?= base_url() ?>dashboard/admin">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Dashboard</span></a>
+            </li>
             <?php if ($type == 'chart') { ?>
             <li class="nav-item active">
                 <?php } else { ?>
@@ -98,15 +105,14 @@ defined('BASEPATH') or exit('No direct script access allowed');
                     <span>Charts</span></a>
             </li>
             <!-- Divider -->
-            <hr class="sidebar-divider">
+            <!--  <hr class="sidebar-divider">
             <li class="nav-item">
                 <a class="nav-link" href="<?= base_url() ?>fileupload">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>File Upload</span></a>
-            </li>
+            </li> -->
 
             <!--ACCESS MENUS FOR AUTHOR-->
-            <?php else : ?>
             <li class="active"><a href="#">Dashboard</a></li>
             <li><a href="#">Posts</a></li>
             <?php endif; ?>
@@ -138,7 +144,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Valerie Luna</span>
+                                <span
+                                    class="mr-2 d-none d-lg-inline text-gray-600 small"><?= $_SESSION['username'] ?></span>
                                 <!-- <img class="img-profile rounded-circle"
                                     src="https://source.unsplash.com/QAB-WJcbgJk/60x60"> -->
                                 <i class="green ace-icon fa fa-user bigger-120"></i>

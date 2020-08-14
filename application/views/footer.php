@@ -48,7 +48,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 
 <script type="text/javascript">
-var save_method; //for save method string
+var save_method;
 var table;
 var base_url = '<?php echo base_url(); ?>';
 
@@ -138,19 +138,27 @@ $(document).ready(function() {
 function add_person() {
     save_method = 'add';
     $('#form')[0].reset(); // reset form on modals
+    $('.psdDiv').show();
     $('.form-group').removeClass('has-error'); // clear error class
     $('.help-block').empty(); // clear error string
     $('#modal_form').modal('show'); // show bootstrap modal
     $('.modal-title').text('Add Person'); // Set Title to Bootstrap modal title
 }
 
-function change_role() {
+/* function change_role(id) {
     save_method = 'role';
-}
+    $('#roleForm')[0].reset(); // reset form on modals
+    $('.form-group').removeClass('has-error'); // clear error class
+    $('.help-block').empty(); // clear error string
+    $('#role_form').modal('show'); // show bootstrap modal
+    $('.modal-title').text('Edit Role'); // Set Title to Bootstrap modal title
+} */
+
 
 function edit_person(id) {
     save_method = 'update';
     $('#form')[0].reset(); // reset form on modals
+    $('.psdDiv').hide();
     $('.form-group').removeClass('has-error'); // clear error class
     $('.help-block').empty(); // clear error string
     //Ajax Load data from ajax
@@ -159,12 +167,15 @@ function edit_person(id) {
         type: "GET",
         dataType: "JSON",
         success: function(data) {
+
             $('[name="id"]').val(data.id);
             $('[name="firstName"]').val(data.firstName);
             $('[name="lastName"]').val(data.lastName);
             $('[name="gender"]').val(data.gender);
             $('[name="address"]').val(data.address);
             $('[name="dob"]').val(data.dob);
+            $('[name="userName"]').val(data.username);
+            $('[name="role"]').val(data.access_level);
             $('#modal_form').modal('show'); // show bootstrap modal when complete loaded
             $('.modal-title').text('Edit Person'); // Set title to Bootstrap modal title
         },
