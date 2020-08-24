@@ -113,8 +113,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
             </li> -->
 
             <!--ACCESS MENUS FOR AUTHOR-->
-            <li class="active"><a href="#">Dashboard</a></li>
-            <li><a href="#">Posts</a></li>
+            <!--  <li class="active"><a href="#">Dashboard</a></li>
+            
+            <li><a href="#">Posts</a></li> -->
             <?php endif; ?>
 
             <!-- Divider -->

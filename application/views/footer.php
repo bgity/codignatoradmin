@@ -20,7 +20,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 </a>
 
 <!-- Bootstrap core JavaScript-->
-<script src="<?= base_url() ?>resources/vendor/jquery/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="<?= base_url() ?>resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- Core plugin JavaScript-->
 <script src="<?= base_url() ?>resources/vendor/jquery-easing/jquery.easing.min.js"></script>
@@ -37,21 +37,20 @@ defined('BASEPATH') or exit('No direct script access allowed');
 <script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.print.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.colVis.min.js"></script>
 <script src="<?= base_url() ?>resources/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-daterangepicker/3.0.5/daterangepicker.min.js"></script>
 <script src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js" crossorigin="anonymous"></script>
 <!-- Page level plugins -->
-<script src="<?= base_url() ?>resources/vendor/chart.js/Chart.min.js"></script>
+<!--<script src="<?= base_url() ?>resources/vendor/chart.js/Chart.min.js"></script>-->
 <!-- Page level custom scripts -->
-<script src="<?= base_url() ?>resources/js/demo/chart-area-demo.js"></script>
+<!--<script src="<?= base_url() ?>resources/js/demo/chart-area-demo.js"></script>
 <script src="<?= base_url() ?>resources/js/demo/chart-pie-demo.js"></script>
-<script src="<?= base_url() ?>resources/js/demo/chart-bar-demo.js"></script>
+<script src="<?= base_url() ?>resources/js/demo/chart-bar-demo.js"></script>-->
 
 
 <script type="text/javascript">
 var save_method;
 var table;
 var base_url = '<?php echo base_url(); ?>';
-
 $(document).ready(function() {
 
     /* $('.navbar-nav').on('click', 'a', function(e) {
@@ -103,6 +102,36 @@ $(document).ready(function() {
         ],
     });
 
+    table = $('#fileUploadTable').DataTable({
+        "dom": 'Bfrtip',
+        buttons: [{
+                extend: 'excelHtml5',
+                exportOptions: {
+                    columns: [0, 1, 2, 3]
+                }
+            },
+            'colvis'
+        ],
+        "processing": true, //Feature control the processing indicator.
+        "serverSide": true, //Feature control DataTables' server-side processing mode.
+        "order": [], //Initial no order.
+        // Load data for the table's content from an Ajax source
+        "ajax": {
+            "url": "<?php echo site_url('fileupload/fileUpload_list') ?>",
+            "type": "POST"
+        },
+        //Set column definition initialisation properties.
+        "columnDefs": [{
+                "targets": [-1], //first column
+                "orderable": false, //set not orderable
+            },
+            {
+                "targets": [-1], //last column
+                "orderable": false, //set not orderable
+            },
+        ],
+    });
+
     //datepicker
     $('input[name="dob"]').daterangepicker({
         singleDatePicker: true,
@@ -112,10 +141,11 @@ $(document).ready(function() {
             format: 'YYYY-MM-DD'
         },
     });
+
     $("#ExportReporttoExcel").on("click", function() {
         table.button('.buttons-excel').trigger();
     });
-    //set input/textarea/select event when change value, remove class error and remove text help block 
+
     $("input").change(function() {
         $(this).parent().parent().removeClass('has-error');
         $(this).next().empty();
@@ -144,16 +174,6 @@ function add_person() {
     $('#modal_form').modal('show'); // show bootstrap modal
     $('.modal-title').text('Add Person'); // Set Title to Bootstrap modal title
 }
-
-/* function change_role(id) {
-    save_method = 'role';
-    $('#roleForm')[0].reset(); // reset form on modals
-    $('.form-group').removeClass('has-error'); // clear error class
-    $('.help-block').empty(); // clear error string
-    $('#role_form').modal('show'); // show bootstrap modal
-    $('.modal-title').text('Edit Role'); // Set Title to Bootstrap modal title
-} */
-
 
 function edit_person(id) {
     save_method = 'update';
@@ -209,25 +229,25 @@ function save() {
         processData: false,
         dataType: "JSON",
         success: function(data) {
-            if (data.status) { //if success close modal and reload ajax table
+            if (data.status) {
                 $('#modal_form').modal('hide');
                 reload_table();
             } else {
                 for (var i = 0; i < data.inputerror.length; i++) {
                     $('[name="' + data.inputerror[i] + '"]').parent().parent().addClass(
                         'has-error'
-                    ); //select parent twice to select div form-group class and add has-error class
+                    );
                     $('[name="' + data.inputerror[i] + '"]').next().text(data.error_string[
-                        i]); //select span help-block class set text error string
+                        i]);
                 }
             }
-            $('#btnSave').text('save'); //change button text
-            $('#btnSave').attr('disabled', false); //set button enable 
+            $('#btnSave').text('save');
+            $('#btnSave').attr('disabled', false);
         },
         error: function(jqXHR, textStatus, errorThrown) {
             alert('Error adding / update data');
-            $('#btnSave').text('save'); //change button text
-            $('#btnSave').attr('disabled', false); //set button enable 
+            $('#btnSave').text('save');
+            $('#btnSave').attr('disabled', false);
         }
     });
 }
@@ -249,6 +269,29 @@ function delete_person(id) {
             }
         });
     }
+}
+
+function fileUpload() {
+    save_method = 'role';
+    $('#file_upload')[0].reset(); // reset form on modals
+    $('.form-group').removeClass('has-error'); // clear error class
+    $('.help-block').empty(); // clear error string
+    $('#fileUpload').modal('show'); // show bootstrap modal
+    $('.modal-title').text('Upload File'); // Set Title to Bootstrap modal title
+}
+
+function uploadCSVFile() {
+    $.ajax({
+        url: "<?php echo site_url('fileupload/uploadCsv') ?>",
+        type: "post",
+        processData: false,
+        contentType: false,
+        cache: false,
+        async: false,
+        success: function(data) {
+            console.log(data);
+        }
+    });
 }
 </script>
 </body>
